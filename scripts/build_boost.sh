@@ -11,7 +11,7 @@ else
 fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
-WD=$(readlink -f "`dirname $0`/..")
+WD=`pwd`
 BOOST_ROOT=${WD}/boost
 BUILD_DIR=${BOOST_ROOT}/build
 INSTALL_DIR=${WD}/android_lib

@@ -13,7 +13,7 @@ fi
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
 LINK="https://github.com/gflags/gflags/archive/v2.1.2.tar.gz"
 TARBALL=gflags_v2.1.2.tar.gz
-WD=$(readlink -f "`dirname $0`/..")
+WD=`pwd`
 DOWNLOAD_DIR=${WD}/download
 GFLAGS_ROOT=${WD}/gflags-2.1.2
 BUILD_DIR=${GFLAGS_ROOT}/build

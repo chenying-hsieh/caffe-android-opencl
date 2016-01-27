@@ -11,7 +11,7 @@ else
 fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
-WD=$(readlink -f "`dirname $0`/..")
+WD=`pwd`
 OPENCV_ROOT=${WD}/opencv
 BUILD_DIR=$OPENCV_ROOT/platforms/build_android_arm
 INSTALL_DIR=${WD}/android_lib

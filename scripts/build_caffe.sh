@@ -11,7 +11,7 @@ else
 fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
-WD=$(readlink -f "`dirname $0`/..")
+WD=`pwd`
 N_JOBS=${N_JOBS:-4}
 CAFFE_ROOT=${WD}/caffe
 BUILD_DIR=${CAFFE_ROOT}/build
@@ -63,7 +63,8 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DGFLAGS_INCLUDE_DIR="${GFLAGS_HOME}/include" \
       -DGFLAGS_LIBRARY="${GFLAGS_HOME}/lib/libgflags.a" \
       -DOpenCV_DIR="${OPENCV_ROOT}" \
-      -DPROTOBUF_PROTOC_EXECUTABLE="${ANDROID_LIB_ROOT}/protobuf_host/bin/protoc" \
+      -DPROTOBUF_PROTOC_EXECUTABLE=`which protoc` \
+      -DGIT_EXECUTABLE=`which git` \
       -DPROTOBUF_INCLUDE_DIR="${PROTOBUF_ROOT}/include" \
       -DPROTOBUF_LIBRARY="${PROTOBUF_ROOT}/lib/libprotobuf.a" \
       -DCMAKE_INSTALL_PREFIX="${ANDROID_LIB_ROOT}/caffe" \

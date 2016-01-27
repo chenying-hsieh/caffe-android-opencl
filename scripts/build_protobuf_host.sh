@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-WD=$(readlink -f "`dirname $0`/..")
+WD=`pwd`
 PROTOBUF_ROOT=${WD}/protobuf
 BUILD_DIR=${PROTOBUF_ROOT}/build_host
 INSTALL_DIR=${WD}/android_lib
