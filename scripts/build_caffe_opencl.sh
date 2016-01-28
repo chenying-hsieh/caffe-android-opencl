@@ -10,35 +10,19 @@ else
     NDK_ROOT="${1:-${NDK_ROOT}}"
 fi
 
-ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
+ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a-hard with NEON"}
 WD=`pwd`
 N_JOBS=${N_JOBS:-4}
-CAFFE_ROOT=${WD}/caffe
+CAFFE_ROOT=${WD}/caffe-opencl
 BUILD_DIR=${CAFFE_ROOT}/build
 ANDROID_LIB_ROOT=${WD}/android_lib
 OPENCV_ROOT=${ANDROID_LIB_ROOT}/opencv/sdk/native/jni
 PROTOBUF_ROOT=${ANDROID_LIB_ROOT}/protobuf
 GFLAGS_HOME=${ANDROID_LIB_ROOT}/gflags
-BOOST_HOME=${ANDROID_LIB_ROOT}/boost_1_56_0
-echo $BOOST_HOME
-
-USE_OPENBLAS=${USE_OPENBLAS:-0}
-if [ ${USE_OPENBLAS} -eq 1 ]; then
-    if [ "${ANDROID_ABI}" = "armeabi-v7a-hard-softfp with NEON" ]; then
-        OpenBLAS_HOME=${ANDROID_LIB_ROOT}/openblas-hard
-    elif [ "${ANDROID_ABI}" = "armeabi-v7a with NEON"  ]; then
-        OpenBLAS_HOME=${ANDROID_LIB_ROOT}/openblas-android
-    else
-        echo "Error: not support OpenBLAS for ABI: ${ANDROID_ABI}"
-        exit 1
-    fi
-
-    BLAS=open
-    export OpenBLAS_HOME="${OpenBLAS_HOME}"
-else
-    BLAS=eigen
-    export EIGEN_HOME="${ANDROID_LIB_ROOT}/eigen3"
-fi
+BOOST_HOME=${ANDROID_LIB_ROOT}/boost_1.56.0
+OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl
+OPENBLAS_ROOT=${WD}/android_lib/openblas-soft
+VIENNACL_ROOT=${ANDROID_LIB_ROOT}/viennacl
 
 
 rm -rf "${BUILD_DIR}"
@@ -54,12 +38,18 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DADDITIONAL_FIND_PATH="${ANDROID_LIB_ROOT}" \
       -DBUILD_python=OFF \
       -DBUILD_docs=OFF \
-      -DCPU_ONLY=ON \
+      -DCPU_ONLY=OFF \
+      -DUSE_CUDA=OFF \
+      -DOPENCL_LIBRARIES=${OPENCL_ROOT}/libOpenCL.so \
+      -DOPENCL_INCLUDE_DIRS=${OPENCL_ROOT} \
+      -DVIENNACL_HOME=${VIENNACL_ROOT} \
+      -DOpenBLAS_INCLUDE_DIR=${OPENBLAS_ROOT}/include \
+      -DOpenBLAS_LIB=${OPENBLAS_ROOT}/lib/libopenblas.a \
+      -DBLAS="Open" \
       -DUSE_GLOG=OFF \
       -DUSE_LMDB=OFF \
       -DUSE_LEVELDB=OFF \
       -DUSE_HDF5=OFF \
-      -DBLAS=${BLAS} \
       -DBOOST_ROOT="${BOOST_HOME}" \
       -DGFLAGS_INCLUDE_DIR="${GFLAGS_HOME}/include" \
       -DGFLAGS_LIBRARY="${GFLAGS_HOME}/lib/libgflags.a" \
