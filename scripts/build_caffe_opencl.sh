@@ -58,11 +58,11 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DGIT_EXECUTABLE=`which git` \
       -DPROTOBUF_INCLUDE_DIR="${PROTOBUF_ROOT}/include" \
       -DPROTOBUF_LIBRARY="${PROTOBUF_ROOT}/lib/libprotobuf.a" \
-      -DCMAKE_INSTALL_PREFIX="${ANDROID_LIB_ROOT}/caffe" \
+      -DCMAKE_INSTALL_PREFIX="${ANDROID_LIB_ROOT}/caffe-opencl" \
       ..
 
 make -j${N_JOBS}
-rm -rf "${ANDROID_LIB_ROOT}/caffe"
+rm -rf "${ANDROID_LIB_ROOT}/caffe-opencl"
 make install/strip
 
 cd "${WD}"

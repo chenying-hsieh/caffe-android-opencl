@@ -13,11 +13,12 @@ fi
 WD=`pwd`
 cd ${WD}
 
-export ANDROID_ABI="${ANDROID_ABI:-"armeabi-v7a with NEON"}"
+export ANDROID_ABI="${ANDROID_ABI:-"armeabi-v7a-hard-softfp with NEON"}"
 export USE_OPENBLAS=${USE_OPENBLAS:-0}
 export N_JOBS=${N_JOBS:-4}
 
 if [ ${USE_OPENBLAS} -eq 1 ]; then
+    echo "using openblas"
     if [ "${ANDROID_ABI}" = "armeabi-v7a-hard-softfp with NEON" ]; then
         ./scripts/build_openblas_hard.sh
     elif [ "${ANDROID_ABI}" = "armeabi-v7a with NEON"  ]; then

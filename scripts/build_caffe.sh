@@ -13,7 +13,7 @@ fi
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
 WD=`pwd`
 N_JOBS=${N_JOBS:-4}
-CAFFE_ROOT=${WD}/caffe
+CAFFE_ROOT=${WD}/caffe-cpu
 BUILD_DIR=${CAFFE_ROOT}/build
 ANDROID_LIB_ROOT=${WD}/android_lib
 OPENCV_ROOT=${ANDROID_LIB_ROOT}/opencv/sdk/native/jni
@@ -68,11 +68,11 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DGIT_EXECUTABLE=`which git` \
       -DPROTOBUF_INCLUDE_DIR="${PROTOBUF_ROOT}/include" \
       -DPROTOBUF_LIBRARY="${PROTOBUF_ROOT}/lib/libprotobuf.a" \
-      -DCMAKE_INSTALL_PREFIX="${ANDROID_LIB_ROOT}/caffe" \
+      -DCMAKE_INSTALL_PREFIX="${ANDROID_LIB_ROOT}/caffe-cpu" \
       ..
 
 make -j${N_JOBS}
-rm -rf "${ANDROID_LIB_ROOT}/caffe"
-make install/strip
+rm -rf "${ANDROID_LIB_ROOT}/caffe-cpu"
+make install
 
 cd "${WD}"
