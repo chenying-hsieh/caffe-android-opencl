@@ -21,8 +21,8 @@ PROTOBUF_ROOT=${ANDROID_LIB_ROOT}/protobuf
 GFLAGS_HOME=${ANDROID_LIB_ROOT}/gflags
 BOOST_HOME=${ANDROID_LIB_ROOT}/boost_1.56.0
 OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl
-OPENBLAS_ROOT=${WD}/android_lib/openblas-soft
-VIENNACL_ROOT=${ANDROID_LIB_ROOT}/viennacl
+OPENBLAS_ROOT=${WD}/android_lib/openblas-hard
+VIENNACL_ROOT=${ANDROID_LIB_ROOT}/viennacl-hard
 
 
 rm -rf "${BUILD_DIR}"

@@ -12,11 +12,12 @@ fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a-hard with NEON"}
 WD=`pwd`
-VIENNACL_ROOT=${WD}/ViennaCL-1.7.1
+CLBLAS_ROOT=${WD}/clBLAS/src
 ANDROID_LIB_ROOT=${WD}/android_lib
 OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl
-BUILD_DIR=${VIENNACL_ROOT}/build
+BUILD_DIR=${CLBLAS_ROOT}/build
 INSTALL_DIR=${WD}/android_lib
+BOOST_HOME=${ANDROID_LIB_ROOT}/boost_1.56.0
 N_JOBS=${N_JOBS:-4}
 
 rm -rf "${BUILD_DIR}"
@@ -26,15 +27,13 @@ cd "${BUILD_DIR}"
 cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DANDROID_NDK="${NDK_ROOT}" \
       -DCMAKE_BUILD_TYPE=Release \
+      -DBOOST_ROOT="${BOOST_HOME}" \
       -DANDROID_ABI="${ANDROID_ABI}" \
       -DANDROID_NATIVE_API_LEVEL=21 \
-      -DOPENCL_LIBRARY=${OPENCL_ROOT}/libOpenCL.so \
-      -DOPENCL_INCLUDE_DIR=${OPENCL_ROOT} \
-      -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/viennacl-hard" \
-      -DVIENNACL_HOME=${VIENNACL_ROOT} \
-      -DOpenBLAS_INCLUDE_DIR=${OPENBLAS_ROOT}/include \
-      -DOpenBLAS_LIB=${OPENBLAS_ROOT}/lib/libopenblas.a \
-      -DBLAS="Open" \
+      -DOPENCL_INCLUDE_DIRS=${OPENCL_ROOT} \
+      -DOPENCL_LIBRARIES=${OPENCL_ROOT}/libOpenCL.so \
+      -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/clblas-hard" \
+      -DPYTHON_EXECUTABLE="/usr/bin/python" \
       ..
 
 make -j${N_JOBS} VERBOSE=1
