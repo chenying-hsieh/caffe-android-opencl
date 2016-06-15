@@ -11,7 +11,7 @@ else
 fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a-hard with NEON"}
-WD=`pwd`
+WD=${WD:-`pwd`}
 N_JOBS=${N_JOBS:-4}
 CAFFE_ROOT=${WD}/caffe-opencl
 BUILD_DIR=${CAFFE_ROOT}/build
@@ -24,6 +24,7 @@ OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl
 OPENBLAS_ROOT=${WD}/android_lib/openblas-hard
 VIENNACL_ROOT=${ANDROID_LIB_ROOT}/viennacl-hard
 
+echo $VIENNACL_ROOT
 
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
@@ -43,6 +44,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DOPENCL_LIBRARIES=${OPENCL_ROOT}/libOpenCL.so \
       -DOPENCL_INCLUDE_DIRS=${OPENCL_ROOT} \
       -DVIENNACL_HOME=${VIENNACL_ROOT} \
+      -DVIENNACL_WITH_OPENCL=1 \
       -DOpenBLAS_INCLUDE_DIR=${OPENBLAS_ROOT}/include \
       -DOpenBLAS_LIB=${OPENBLAS_ROOT}/lib/libopenblas.a \
       -DBLAS="Open" \
@@ -52,7 +54,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DUSE_HDF5=OFF \
       -DBOOST_ROOT="${BOOST_HOME}" \
       -DGFLAGS_INCLUDE_DIR="${GFLAGS_HOME}/include" \
-      -DGFLAGS_LIBRARY="${GFLAGS_HOME}/lib/libgflags.a" \
+      -DGFLAGS_LIBRARY="${GFLAGS_HOME}/lib/libgflags_nothreads.a" \
       -DOpenCV_DIR="${OPENCV_ROOT}" \
       -DPROTOBUF_PROTOC_EXECUTABLE=`which protoc` \
       -DGIT_EXECUTABLE=`which git` \

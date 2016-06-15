@@ -15,7 +15,7 @@ LINK="https://github.com/gflags/gflags/archive/v2.1.2.tar.gz"
 TARBALL=gflags_v2.1.2.tar.gz
 WD=`pwd`
 DOWNLOAD_DIR=${WD}/download
-GFLAGS_ROOT=${WD}/gflags-2.1.2
+GFLAGS_ROOT=${WD}/gflags
 BUILD_DIR=${GFLAGS_ROOT}/build
 INSTALL_DIR=${WD}/android_lib
 N_JOBS=${N_JOBS:-4}
@@ -37,7 +37,7 @@ cd "${BUILD_DIR}"
 
 cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DANDROID_NDK="${NDK_ROOT}" \
-      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_BUILD_TYPE=Debug \
       -DANDROID_ABI="${ANDROID_ABI}" \
       -DANDROID_NATIVE_API_LEVEL=21 \
       -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/gflags" \
