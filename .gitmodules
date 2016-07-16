@@ -13,3 +13,6 @@
 [submodule "android-cmake"]
 	path = android-cmake
 	url = https://github.com/sh1r0/android-cmake.git
+[submodule "caffe-opencl"]
+	path = caffe-opencl
+	url = https://github.com/strin/caffe-android-opencl
