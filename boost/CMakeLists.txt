@@ -66,9 +66,16 @@ include_directories("${boost_root}/libs/math/src/tr1")
 
 add_library( boost_math ${lib_srcs})
 
+#file(GLOB lib_srcs ${boost_root}/libs/serialization/src/*.cpp)
+#add_library( boost_serialization ${lib_srcs})
+
+#file(GLOB lib_srcs ${boost_root}/libs/chrono/src/*.cpp)
+#add_library( boost_chrono ${lib_srcs})
+
 #target_link_libraries(boost_filesystem boost_system)
 
 set(Boost_INCLUDE_DIRS ${boost_root})
+#set(Boost_LIBRARIES boost_filesystem boost_system boost_program_options boost_iostreams boost_date_time boost_atomic boost_random boost_math boost_serialization boost_chrono)
 set(Boost_LIBRARIES boost_filesystem boost_system boost_program_options boost_iostreams boost_date_time boost_atomic boost_random boost_math)
 set(Boost_LINK_DIRS ${LIBRARY_OUTPUT_PATH})
 
@@ -87,3 +94,5 @@ install(TARGETS boost_date_time DESTINATION lib)
 install(TARGETS boost_atomic DESTINATION lib)
 install(TARGETS boost_random DESTINATION lib)
 install(TARGETS boost_math DESTINATION lib)
+#install(TARGETS boost_chrono DESTINATION lib)
+#install(TARGETS boost_serialization DESTINATION lib)

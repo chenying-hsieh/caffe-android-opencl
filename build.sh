@@ -13,7 +13,8 @@ fi
 WD=`pwd`
 cd ${WD}
 
-export ANDROID_ABI="${ANDROID_ABI:-"armeabi-v7a-hard-softfp with NEON"}"
+#export ANDROID_ABI="${ANDROID_ABI:-"armeabi-v7a-hard-softfp with NEON"}"
+export ANDROID_ABI="${ANDROID_ABI:-"armeabi-v7a with NEON"}"
 export USE_OPENBLAS=${USE_OPENBLAS:-0}
 export N_JOBS=${N_JOBS:-4}
 
@@ -35,8 +36,10 @@ fi
 ./scripts/build_boost.sh
 ./scripts/build_gflags.sh
 ./scripts/build_opencv.sh
-./scripts/build_protobuf_host.sh
+#./scripts/build_protobuf_host.sh
 ./scripts/build_protobuf.sh
 ./scripts/build_caffe.sh
+./scripts/build_viennacl.sh
+./scripts/build_caffe_opencl.sh
 
 echo "DONE!!"

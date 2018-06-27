@@ -35,15 +35,21 @@ N_JOBS=${N_JOBS:-4}
 
 cd "${OPENBLAS_ROOT}"
 
- 
-make clean
+
+#make clean
 make -j${N_JOBS} \
      CC="$TOOLCHAIN_DIR/arm-linux-androideabi-gcc --sysroot=$NDK_ROOT/platforms/android-21/arch-arm" \
      CROSS_SUFFIX=$TOOLCHAIN_DIR/arm-linux-androideabi- \
-     HOSTCC=gcc NO_LAPACK=1 TARGET=ARMV7 \
-     USE_THREAD=1 NUM_THREADS=8 USE_OPENMP=1
+     HOSTCC=gcc NOFORTRAN=1 TARGET=ARMV7 USE_THREAD=0
 
-rm -rf "$INSTALL_DIR/openblas-soft"
+#make -j${N_JOBS} \
+#     CC="$TOOLCHAIN_DIR/arm-linux-androideabi-gcc --sysroot=$NDK_ROOT/platforms/android-21/arch-arm" \
+#     CROSS_SUFFIX=$TOOLCHAIN_DIR/arm-linux-androideabi- \
+#     HOSTCC=gcc NO_LAPACK=1 NOFORTRAN=1 TARGET=ARMV7 \
+#     USE_THREAD=0 CXX_FLAGS="-march=armv7-a -mfloat-abi=softfp -mfpu=neon"
+#     #USE_THREAD=1 NUM_THREADS=8 USE_OPENMP=0 CXX_FLAGS="-march=armv7-a -mfloat-abi=softfp -mfpu=neon"
+
+#rm -rf "$INSTALL_DIR/openblas-soft"
 make PREFIX="$INSTALL_DIR/openblas-soft" VERBOSE=1 install
 
 cd "${WD}"

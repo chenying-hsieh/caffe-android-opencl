@@ -10,16 +10,18 @@ else
     NDK_ROOT="${1:-${NDK_ROOT}}"
 fi
 
-ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a-hard with NEON"}
+ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
 WD=`pwd`
 VIENNACL_ROOT=${WD}/ViennaCL-1.7.1
 ANDROID_LIB_ROOT=${WD}/android_lib
-OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl
-BUILD_DIR=${VIENNACL_ROOT}/build
+OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl/1.2
+BUILD_DIR=${VIENNACL_ROOT}/cmake
 INSTALL_DIR=${WD}/android_lib
 N_JOBS=${N_JOBS:-4}
+#BOOST_HOME=${WD}/boost/boost_1_56_0
+BOOST_HOME=${ANDROID_LIB_ROOT}/boost
 
-rm -rf "${BUILD_DIR}"
+#rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 cd "${BUILD_DIR}"
 
@@ -34,12 +36,18 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DVIENNACL_HOME=${VIENNACL_ROOT} \
       -DOpenBLAS_INCLUDE_DIR=${OPENBLAS_ROOT}/include \
       -DOpenBLAS_LIB=${OPENBLAS_ROOT}/lib/libopenblas.a \
+      -DBOOST_ROOT=${BOOST_HOME} \
+      -DBoost_Version="1.56.0" \
+      -DBoost_INCLUDE_DIR=${BOOST_HOME}/include \
+      -DBOOST_LIBRARYDIR=${BOOST_HOME}/lib \
       -DBLAS="Open" \
+      -DBUILD_TESTING=OFF \
       ..
 
+
 make -j${N_JOBS} VERBOSE=1
-rm -rf "${INSTALL_DIR}/boost"
-make install/strip 
+#rm -rf "${INSTALL_DIR}/boost"
+make install/strip
 
 cd "${WD}"
-rm -rf "${BUILD_DIR}"
+#rm -rf "${BUILD_DIR}"

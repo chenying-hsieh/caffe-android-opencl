@@ -18,6 +18,7 @@ cd "${BUILD_DIR}"
 
 cmake -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/protobuf_host" \
       -DBUILD_TESTING=OFF \
+      -Dprotobuf_BUILD_TESTS=OFF \
       ../cmake
 
 make -j${N_JOBS}

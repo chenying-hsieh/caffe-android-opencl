@@ -10,6 +10,7 @@ else
     NDK_ROOT="${1:-${NDK_ROOT}}"
 fi
 
+echo "111" && ls
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
 LINK="https://github.com/gflags/gflags/archive/v2.1.2.tar.gz"
 TARBALL=gflags_v2.1.2.tar.gz
@@ -22,6 +23,7 @@ N_JOBS=${N_JOBS:-4}
 
 [ ! -d ${DOWNLOAD_DIR} ] && mkdir -p ${DOWNLOAD_DIR}
 
+echo "222" && ls
 cd ${DOWNLOAD_DIR}
 if [ ! -f ${TARBALL} ]; then
     wget ${LINK} -O ${TARBALL}
@@ -31,6 +33,8 @@ if [ ! -d ${GFLAGS_ROOT} ]; then
     tar zxf ${TARBALL} -C "${WD}"
 fi
 
+cd ${WD}
+#ln -s gflags-2.1.2 gflags
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 cd "${BUILD_DIR}"

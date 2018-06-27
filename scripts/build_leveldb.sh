@@ -10,17 +10,13 @@ else
     NDK_ROOT="${1:-${NDK_ROOT}}"
 fi
 
-#ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a-hard with NEON"}
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
-WD=$(readlink -f "`dirname $0`/..")
-BOOST_ROOT=${WD}/boost
-BUILD_DIR=${BOOST_ROOT}/build
+WD=`pwd`
+LEVELDB_ROOT=${WD}/leveldb
+ANDROID_LIB_ROOT=${WD}/android_lib
+BUILD_DIR=${LEVELDB_ROOT}/build
 INSTALL_DIR=${WD}/android_lib
 N_JOBS=${N_JOBS:-8}
-
-cd "${BOOST_ROOT}"
-./get_boost.sh
-cd "${WD}"
 
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
@@ -31,12 +27,10 @@ cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DCMAKE_BUILD_TYPE=Release \
       -DANDROID_ABI="${ANDROID_ABI}" \
       -DANDROID_NATIVE_API_LEVEL=21 \
-      -DANDROID_TOOLCHAIN_NAME=arm-linux-androideabi-4.9 \
-      -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/boost" \
+      -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/leveldb" \
       ..
 
-make -j${N_JOBS}
-rm -rf "${INSTALL_DIR}/boost"
+make -j${N_JOBS} VERBOSE=1
 make install/strip
 
 cd "${WD}"

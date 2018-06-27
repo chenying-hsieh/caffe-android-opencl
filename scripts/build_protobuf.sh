@@ -11,7 +11,7 @@ else
 fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
-WD=`pwd`
+WD=$(readlink -f "`dirname $0`/..")
 PROTOBUF_ROOT=${WD}/protobuf
 BUILD_DIR=${PROTOBUF_ROOT}/build_dir
 INSTALL_DIR=${WD}/android_lib
@@ -21,18 +21,20 @@ rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 cd "${BUILD_DIR}"
 
-# -DCMAKE_BUILD_TYPE=Release \
 cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DANDROID_NDK=${NDK_ROOT} \
+      -DCMAKE_BUILD_TYPE=Release \
       -DANDROID_ABI="${ANDROID_ABI}" \
       -DANDROID_NATIVE_API_LEVEL=21 \
+      -DANDROID_TOOLCHAIN_NAME=arm-linux-androideabi-4.9 \
       -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/protobuf \
       -DBUILD_TESTING=OFF \
-      ..
+      -Dprotobuf_BUILD_TESTS=OFF \
+      ../cmake
 
 make -j${N_JOBS}
 rm -rf "${INSTALL_DIR}/protobuf"
-make install VERBOSE=1
+make install/strip
 
 cd "${WD}"
-rm -rf ${BUILD_DIR}
+#rm -rf ${BUILD_DIR}
