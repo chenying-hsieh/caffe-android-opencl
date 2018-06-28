@@ -13,9 +13,9 @@
 [submodule "android-cmake"]
 	path = android-cmake
 	url = https://github.com/sh1r0/android-cmake.git
-[submodule "caffe-opencl"]
-	path = caffe-opencl
-	url = https://github.com/chenying-hsieh/caffe-opencl
+[submodule "caffe-upr"]
+	path = caffe-upr
+	url = https://github.com/chenying-hsieh/caffe-upr.git
 [submodule "viennacl-dev"]
 	path = viennacl-dev
 	url = https://github.com/viennacl/viennacl-dev.git
