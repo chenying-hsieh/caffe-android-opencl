@@ -35,10 +35,15 @@ fi
 
 ./scripts/build_boost.sh
 ./scripts/build_gflags.sh
-#./scripts/build_opencv.sh
+./scripts/build_glog.sh
+./scripts/build_leveldb.sh
+./scripts/build_lmdb.sh
+./scripts/build_clblas.sh
+./scripts/build_openblas-soft.sh
+./scripts/build_opencv.sh
+./scripts/build_opencv.sh
 #./scripts/build_protobuf_host.sh
 ./scripts/build_protobuf.sh
-./scripts/build_caffe.sh
 ./scripts/build_viennacl.sh
 ./scripts/build_caffe_opencl.sh
 

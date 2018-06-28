@@ -19,9 +19,12 @@ BUILD_DIR=${LMDB_ROOT}/build
 INSTALL_DIR=${WD}/android_lib
 N_JOBS=${N_JOBS:-4}
 
+cp -v cmakelist/lmdb.CMakeLists.txt $LMDB_ROOT/CMakeLists.txt
+
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 cd "${BUILD_DIR}"
+
 
 cmake -DCMAKE_TOOLCHAIN_FILE="${WD}/android-cmake/android.toolchain.cmake" \
       -DANDROID_NDK="${NDK_ROOT}" \

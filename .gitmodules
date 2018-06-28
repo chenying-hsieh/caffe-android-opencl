@@ -26,3 +26,18 @@
 	path = gflags
 	url = https://github.com/chenying-hsieh/gflags.git
 
+[submodule "glog"]
+	path = glog
+	url = https://github.com/google/glog
+[submodule "lmdb"]
+	path = lmdb
+	url = https://github.com/LMDB/lmdb.git
+[submodule "snappy"]
+	path = snappy
+	url = https://github.com/google/snappy
+[submodule "leveldb"]
+	path = leveldb
+	url = https://github.com/chenying-hsieh/leveldb.git
+[submodule "clBLAS"]
+	path = clBLAS
+	url = https://github.com/chenying-hsieh/clBLAS.git

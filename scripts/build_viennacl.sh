@@ -12,7 +12,7 @@ fi
 
 ANDROID_ABI=${ANDROID_ABI:-"armeabi-v7a with NEON"}
 WD=`pwd`
-VIENNACL_ROOT=${WD}/ViennaCL-1.7.1
+VIENNACL_ROOT=${WD}/viennacl-dev
 ANDROID_LIB_ROOT=${WD}/android_lib
 OPENCL_ROOT=${ANDROID_LIB_ROOT}/opencl/1.2
 BUILD_DIR=${VIENNACL_ROOT}/cmake
