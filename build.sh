@@ -39,9 +39,9 @@ fi
 ./scripts/build_leveldb.sh
 ./scripts/build_lmdb.sh
 ./scripts/build_clblas.sh
-./scripts/build_openblas-soft.sh
+./scripts/build_openblas_soft.sh
 ./scripts/build_opencv.sh
-./scripts/build_opencv.sh
+./scripts/build_snappy.sh
 #./scripts/build_protobuf_host.sh
 ./scripts/build_protobuf.sh
 ./scripts/build_viennacl.sh
